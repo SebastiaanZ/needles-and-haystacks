@@ -10,5 +10,8 @@ class FunctionRegistry:
         self.functions[name] = function
         return function
 
+    def __call__(self, function):
+        return self.register(function)
+
 
 haystack_functions = FunctionRegistry()

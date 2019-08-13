@@ -1,13 +1,13 @@
 from function_registry import haystack_functions
 
 
-@haystack_functions.register
+@haystack_functions
 def function_ves(haystack, needles):
     try:
         iterstack = iter(haystack)
         for needle in needles:
             hay = next(iterstack)
-            while hay != needle :
+            while hay != needle:
                 hay = next(iterstack)
     except StopIteration:
         return False
@@ -15,7 +15,7 @@ def function_ves(haystack, needles):
     return True
 
 
-@haystack_functions.register
+@haystack_functions
 def function_grote(haystack, needles):
     last_needle = 0
     for needle in needles:
@@ -26,7 +26,7 @@ def function_grote(haystack, needles):
     return True
 
 
-@haystack_functions.register
+@haystack_functions
 def function_kosa(haystack, needles):
     hay_left = len(haystack)
     iterstack = iter(haystack)
@@ -40,13 +40,13 @@ def function_kosa(haystack, needles):
     return True
 
 
-@haystack_functions.register
+@haystack_functions
 def function_eivl(haystack, needles):
     hay_iter = iter(haystack)
     return all(n in hay_iter for n in needles)
 
 
-@haystack_functions.register
+@haystack_functions
 def function_scragly(haystack, needles):
     i = 0
     for n in haystack:
@@ -55,7 +55,7 @@ def function_scragly(haystack, needles):
     return needles[i:] == []
 
 
-@haystack_functions.register
+@haystack_functions
 def function_shirayuki(haystack: list, needles: list) -> bool:
     try:
         found, _index = -1, haystack.index
@@ -66,7 +66,7 @@ def function_shirayuki(haystack: list, needles: list) -> bool:
     return True
 
 
-@haystack_functions.register
+@haystack_functions
 def function_bytecommander(hs, ns):
     try:
         hi = iter(hs)
@@ -75,3 +75,8 @@ def function_bytecommander(hs, ns):
         return True
     except StopIteration:
         return False
+
+
+@haystack_functions
+def function_bast_reduce(haystack: list, needles: list) -> bool:
+    return [i for i in haystack if i in needles] == needles

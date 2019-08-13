@@ -1,5 +1,6 @@
 import random
 import unittest
+from string import ascii_uppercase
 
 from functions import haystack_functions
 
@@ -110,9 +111,21 @@ class TestHaystackFunctions(TestCaseBuilder):
         needles = list(range(300, 400)) + [500, 500]
         self.assertFalse(self.function(haystack, needles))
 
+    def test_long_long_identical_lists(self):
+        haystack = list(range(10000))
+        needles = list(range(10000))
+        self.assertTrue(self.function(haystack, needles))
 
-def main(haystack_functions):
-    for name, function in haystack_functions:
+    def test_long_long_small_charset_true(self):
+        random.seed(2019081307)
+
+        haystack = random.choices(ascii_uppercase, k=1000)
+        needles = haystack[0::len(haystack)//50]
+        self.assertTrue(self.function(haystack, needles))
+
+
+def main(haystack_functionss):
+    for name, function in haystack_functionss:
         print(f"Testing haystack function written by {name}")
         print("----------------------------------------------------------------------")
         suite = unittest.TestSuite()
